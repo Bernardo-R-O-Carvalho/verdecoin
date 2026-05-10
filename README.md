@@ -148,4 +148,4 @@ This repository was developed during the **VerdeCoin Hackathon**. The current co
 ## License
 
 Forked from [Bitcoin Core](https://github.com/bitcoin/bitcoin) — MIT License.  
-VerdeCoin modifications © 2025 PID — all rights reserved.
+VerdeCoin modifications © 2026 PID — all rights reserved.
