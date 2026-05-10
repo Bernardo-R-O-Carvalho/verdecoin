@@ -39,18 +39,6 @@ VDC returns to PID and is redistributed to new verified users
 
 ---
 
-## Fraud Prevention
-
-| Mechanism | How it works |
-|---|---|
-| Gov.br integration | Eliminates identity fraud |
-| Mandatory geolocation | Prevents remote/false declarations |
-| Gradual credit release | Discourages claiming and abandoning |
-| Random audits | Surprise verification of declared actions |
-| Permanent ban | Zero tolerance for confirmed fraud |
-
----
-
 ## Technical Specifications
 
 | Parameter | Value |
