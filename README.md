@@ -19,14 +19,14 @@ VerdeCoin changes that.
 ```
 User performs a climate action
         ↓
-Action is validated (Gov.br identity + geolocation + collective confirmation)
+Action is validated
         ↓
 User receives VDC proportional to the action and territorial zone
 (more vulnerable areas receive higher rewards)
         ↓
 Company buys VDC from the user in real currency
         ↓
-Company receives a Climate Contribution Seal issued by PID
+Company send VDC to PID and, in exchange, receives a Climate Contribution Seal issued by PID
         ↓
 VDC returns to PID and is redistributed to new verified users
 ```
