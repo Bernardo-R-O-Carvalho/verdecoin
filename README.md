@@ -1,92 +1,92 @@
 # 🌿 VerdeCoin (VDC)
 
-> **Mercado de carbono popular — para quem age pelo clima, não para quem pode pagar por ele.**
+> **A popular carbon market — for those who act on climate, not those who can afford to pollute.**
 
-VerdeCoin é uma criptomoeda fork do Bitcoin Core (v27.0) desenvolvida para o app **VerdeCoin**, plataforma que remunera pessoas físicas por ações climáticas reais, com foco em justiça ambiental e comunidades periféricas.
-
----
-
-## O problema que resolve
-
-O mercado de carbono tradicional foi desenhado para governos e grandes corporações. Países ricos compram créditos para continuar poluindo — e quem mais sofre com a crise climática (moradores de periferias, ilhas de calor, áreas de risco) não recebe nenhum incentivo financeiro para agir.
-
-A VerdeCoin muda isso.
+VerdeCoin is a cryptocurrency forked from Bitcoin Core (v27.0), built to power the **VerdeCoin** app — a platform that financially rewards individuals for real climate actions, with a focus on environmental justice and underserved communities.
 
 ---
 
-## Como funciona
+## The Problem
+
+Traditional carbon markets were designed for governments and corporations. Wealthy nations buy carbon credits to keep polluting — while those who suffer most from the climate crisis (residents of urban heat islands, flood-prone areas, and low-income neighborhoods) receive no financial incentive to act.
+
+VerdeCoin changes that.
+
+---
+
+## How It Works
 
 ```
-Usuário age pelo clima
+User performs a climate action
         ↓
-Ação validada (Gov.br + geolocalização + confirmação coletiva)
+Action is validated (Gov.br identity + geolocation + collective confirmation)
         ↓
-Usuário recebe VDC proporcional à ação e à zona territorial
-(áreas mais vulneráveis recebem mais)
+User receives VDC proportional to the action and territorial zone
+(more vulnerable areas receive higher rewards)
         ↓
-Empresa compra VDC do usuário em dinheiro real
+Company buys VDC from the user in real currency
         ↓
-Empresa recebe Selo de Contribuição Climática (PID)
+Company receives a Climate Contribution Seal issued by PID
         ↓
-VDC retorna à PID e é redistribuído para novos usuários
+VDC returns to PID and is redistributed to new verified users
 ```
 
-**Exemplos de ações climáticas reconhecidas:**
-- Compra de carro elétrico
-- Plantio de árvores
-- Instalação de painel solar
-- Descarte correto de resíduos
+**Examples of recognized climate actions:**
+- Purchasing an electric vehicle
+- Planting trees
+- Installing solar panels
+- Proper waste disposal and recycling
 
 ---
 
-## Proteção contra fraude
+## Fraud Prevention
 
-| Mecanismo | Como funciona |
+| Mechanism | How it works |
 |---|---|
-| Gov.br | Elimina falsificação de identidade |
-| Geolocalização obrigatória | Impede declarações remotas |
-| Liberação gradual de créditos | Desincentiva abandono após recebimento |
-| Auditoria aleatória | Verificação surpresa de ações declaradas |
-| Banimento permanente | Tolerância zero para fraude confirmada |
+| Gov.br integration | Eliminates identity fraud |
+| Mandatory geolocation | Prevents remote/false declarations |
+| Gradual credit release | Discourages claiming and abandoning |
+| Random audits | Surprise verification of declared actions |
+| Permanent ban | Zero tolerance for confirmed fraud |
 
 ---
 
-## Especificações técnicas
+## Technical Specifications
 
-| Parâmetro | Valor |
+| Parameter | Value |
 |---|---|
 | Ticker | VDC |
-| Supply total | 50.000.000 VDC |
-| Modelo de emissão | Bloco 1 emite todos os 50M para a PID |
-| Mineração pública | Não existe |
-| Tempo por bloco | 2 minutos |
-| Halving | A cada 262.800 blocos (~1 ano) |
-| Prefixo de endereços | Começa com `V` |
+| Total supply | 50,000,000 VDC |
+| Emission model | Block 1 mints all 50M VDC to PID |
+| Public mining | None |
+| Block time | 2 minutes |
+| Halving | Every 262,800 blocks (~1 year) |
+| Address prefix | Starts with `V` |
 | bech32 mainnet | `vdc` |
 | bech32 testnet/signet | `tvdc` |
 | bech32 regtest | `vcrt` |
-| Porta mainnet | 42777 |
-| Porta testnet | 42778 |
+| Mainnet port | 42777 |
+| Testnet port | 42778 |
 
 ---
 
 ## Proof of Authority (PoA)
 
-A VerdeCoin **não tem mineração pública**. Em vez de Proof of Work, adota um modelo de **Proof of Authority** onde apenas a PID (entidade gestora) valida e emite blocos.
+VerdeCoin has **no public mining**. Instead of Proof of Work, it uses a **Proof of Authority** model where only PID (the governing entity) validates and issues blocks.
 
-Isso garante:
-- **Sem desperdício energético** — nenhum minerador competindo por recompensa
-- **Controle da emissão** — os 50M de VDC são pré-alocados à PID no bloco 1
-- **Velocidade e previsibilidade** — blocos a cada 2 minutos sem variação
-- **Alinhamento com o propósito climático** — uma criptomoeda de carbono não pode ter footprint de carbono alto
+This ensures:
+- **No energy waste** — no miners competing for block rewards
+- **Controlled supply** — all 50M VDC are pre-allocated to PID at block 1
+- **Speed and predictability** — consistent 2-minute block times
+- **Aligned with climate goals** — a carbon currency shouldn't have a carbon footprint
 
-A recompensa de todos os blocos após o bloco 1 é **zero**. Novos VDC só entram em circulação quando a PID os distribui para usuários verificados.
+Block rewards after block 1 are **zero**. New VDC only enters circulation when PID distributes it to verified users.
 
 ---
 
-## Rodando localmente (regtest)
+## Running Locally (regtest)
 
-### Requisitos
+### Requirements
 - Ubuntu / WSL2
 - Build tools: `autoconf`, `automake`, `libtool`, `pkg-config`, `libssl-dev`, `libboost-all-dev`
 
@@ -101,51 +101,51 @@ git checkout verdecoin-main
 make -j4
 ```
 
-### Subir o nó e criar carteira da PID
+### Start the node and set up the PID wallet
 
 ```bash
-# Subir o nó em regtest
+# Start regtest node
 rm -rf /tmp/vdc-test && mkdir /tmp/vdc-test
 ./src/bitcoind -regtest -datadir=/tmp/vdc-test -daemon
 sleep 12
 
-# Criar carteira e importar chave da PID
+# Create PID wallet and import key
 ./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test createwallet "PID"
 ./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test -rpcwallet=PID importdescriptors \
   '[{"desc":"pk(cNM5biwD2vCCPmYCNcs8569WU9jnBXiX5DeP9QTeAXQGd7v2Zi5F)#f2sw8a7m","timestamp":0}]'
 
-# Minerar bloco 1 (50M VDC para a PID) + 100 blocos para maturar
+# Mine block 1 (50M VDC to PID) + 100 blocks to mature the coinbase
 ADDR=$(./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test -rpcwallet=PID getnewaddress)
 ./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test generatetoaddress 101 $ADDR
 
-# Verificar saldo
+# Check balance
 ./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test -rpcwallet=PID getbalance
-# Resultado: 50000000.00000000
+# Expected: 50000000.00000000
 ```
 
 ---
 
-## Status do projeto
+## Project Status
 
-Este repositório foi desenvolvido durante o **VerdeCoin Hackathon**. O código atual é funcional em regtest e demonstra o fluxo completo de emissão e transferência de VDC.
+This repository was developed during the **VerdeCoin Hackathon**. The current codebase is fully functional in regtest and demonstrates the complete VDC issuance and transfer flow.
 
-**Implementado:**
-- ✅ Fork do Bitcoin Core v27.0 com parâmetros VerdeCoin
-- ✅ Genesis block com chave da PID
-- ✅ Bloco 1 emite 50M VDC para a PID
-- ✅ Proof of Authority (recompensa zero em todos os blocos exceto o 1)
-- ✅ Prefixos de endereço, portas e identificadores de rede customizados
+**Implemented:**
+- ✅ Bitcoin Core v27.0 fork with VerdeCoin parameters
+- ✅ Genesis block with PID key
+- ✅ Block 1 mints 50M VDC to PID
+- ✅ Proof of Authority (zero block reward after block 1)
+- ✅ Custom address prefixes, ports, and network identifiers
 
-**Próximos passos:**
-- [ ] Seeds DNS (`seed.verdecoin.org`)
-- [ ] Servidor mainnet 24/7
-- [ ] Multiplicador territorial por zona PID
-- [ ] Integração com validação Gov.br e geolocalização
-- [ ] SDK para integração com o app VerdeCoin
+**Roadmap:**
+- [ ] DNS seeds (`seed.verdecoin.org`)
+- [ ] 24/7 mainnet server
+- [ ] Territorial multiplier by PID zone
+- [ ] Gov.br identity and geolocation validation
+- [ ] SDK for VerdeCoin app integration
 
 ---
 
-## Licença
+## License
 
-Fork do [Bitcoin Core](https://github.com/bitcoin/bitcoin) — MIT License.  
-Modificações VerdeCoin © 2025 PID — todos os direitos reservados.
+Forked from [Bitcoin Core](https://github.com/bitcoin/bitcoin) — MIT License.  
+VerdeCoin modifications © 2025 PID — all rights reserved.
