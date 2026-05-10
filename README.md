@@ -1,78 +1,151 @@
-Bitcoin Core integration/staging tree
-=====================================
+# 🌿 VerdeCoin (VDC)
 
-https://bitcoincore.org
+> **Mercado de carbono popular — para quem age pelo clima, não para quem pode pagar por ele.**
 
-For an immediately usable, binary version of the Bitcoin Core software, see
-https://bitcoincore.org/en/download/.
+VerdeCoin é uma criptomoeda fork do Bitcoin Core (v27.0) desenvolvida para o app **VerdeCoin**, plataforma que remunera pessoas físicas por ações climáticas reais, com foco em justiça ambiental e comunidades periféricas.
 
-What is Bitcoin Core?
----------------------
+---
 
-Bitcoin Core connects to the Bitcoin peer-to-peer network to download and fully
-validate blocks and transactions. It also includes a wallet and graphical user
-interface, which can be optionally built.
+## O problema que resolve
 
-Further information about Bitcoin Core is available in the [doc folder](/doc).
+O mercado de carbono tradicional foi desenhado para governos e grandes corporações. Países ricos compram créditos para continuar poluindo — e quem mais sofre com a crise climática (moradores de periferias, ilhas de calor, áreas de risco) não recebe nenhum incentivo financeiro para agir.
 
-License
--------
+A VerdeCoin muda isso.
 
-Bitcoin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
-information or see https://opensource.org/licenses/MIT.
+---
 
-Development Process
--------------------
+## Como funciona
 
-The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested, but it is not guaranteed to be
-completely stable. [Tags](https://github.com/bitcoin/bitcoin/tags) are created
-regularly from release branches to indicate new official, stable release versions of Bitcoin Core.
+```
+Usuário age pelo clima
+        ↓
+Ação validada (Gov.br + geolocalização + confirmação coletiva)
+        ↓
+Usuário recebe VDC proporcional à ação e à zona territorial
+(áreas mais vulneráveis recebem mais)
+        ↓
+Empresa compra VDC do usuário em dinheiro real
+        ↓
+Empresa recebe Selo de Contribuição Climática (PID)
+        ↓
+VDC retorna à PID e é redistribuído para novos usuários
+```
 
-The https://github.com/bitcoin-core/gui repository is used exclusively for the
-development of the GUI. Its master branch is identical in all monotree
-repositories. Release branches and tags do not exist, so please do not fork
-that repository unless it is for development reasons.
+**Exemplos de ações climáticas reconhecidas:**
+- Compra de carro elétrico
+- Plantio de árvores
+- Instalação de painel solar
+- Descarte correto de resíduos
 
-The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
-and useful hints for developers can be found in [doc/developer-notes.md](doc/developer-notes.md).
+---
 
-Testing
--------
+## Proteção contra fraude
 
-Testing and code review is the bottleneck for development; we get more pull
-requests than we can review and test on short notice. Please be patient and help out by testing
-other people's pull requests, and remember this is a security-critical project where any mistake might cost people
-lots of money.
+| Mecanismo | Como funciona |
+|---|---|
+| Gov.br | Elimina falsificação de identidade |
+| Geolocalização obrigatória | Impede declarações remotas |
+| Liberação gradual de créditos | Desincentiva abandono após recebimento |
+| Auditoria aleatória | Verificação surpresa de ações declaradas |
+| Banimento permanente | Tolerância zero para fraude confirmada |
 
-### Automated Testing
+---
 
-Developers are strongly encouraged to write [unit tests](src/test/README.md) for new code, and to
-submit new unit tests for old code. Unit tests can be compiled and run
-(assuming they weren't disabled in configure) with: `make check`. Further details on running
-and extending unit tests can be found in [/src/test/README.md](/src/test/README.md).
+## Especificações técnicas
 
-There are also [regression and integration tests](/test), written
-in Python.
-These tests can be run (if the [test dependencies](/test) are installed) with: `test/functional/test_runner.py`
+| Parâmetro | Valor |
+|---|---|
+| Ticker | VDC |
+| Supply total | 50.000.000 VDC |
+| Modelo de emissão | Bloco 1 emite todos os 50M para a PID |
+| Mineração pública | Não existe |
+| Tempo por bloco | 2 minutos |
+| Halving | A cada 262.800 blocos (~1 ano) |
+| Prefixo de endereços | Começa com `V` |
+| bech32 mainnet | `vdc` |
+| bech32 testnet/signet | `tvdc` |
+| bech32 regtest | `vcrt` |
+| Porta mainnet | 42777 |
+| Porta testnet | 42778 |
 
-The CI (Continuous Integration) systems make sure that every pull request is built for Windows, Linux, and macOS,
-and that unit/sanity tests are run automatically.
+---
 
-### Manual Quality Assurance (QA) Testing
+## Proof of Authority (PoA)
 
-Changes should be tested by somebody other than the developer who wrote the
-code. This is especially important for large or high-risk changes. It is useful
-to add a test plan to the pull request description if testing the changes is
-not straightforward.
+A VerdeCoin **não tem mineração pública**. Em vez de Proof of Work, adota um modelo de **Proof of Authority** onde apenas a PID (entidade gestora) valida e emite blocos.
 
-Translations
-------------
+Isso garante:
+- **Sem desperdício energético** — nenhum minerador competindo por recompensa
+- **Controle da emissão** — os 50M de VDC são pré-alocados à PID no bloco 1
+- **Velocidade e previsibilidade** — blocos a cada 2 minutos sem variação
+- **Alinhamento com o propósito climático** — uma criptomoeda de carbono não pode ter footprint de carbono alto
 
-Changes to translations as well as new translations can be submitted to
-[Bitcoin Core's Transifex page](https://www.transifex.com/bitcoin/bitcoin/).
+A recompensa de todos os blocos após o bloco 1 é **zero**. Novos VDC só entram em circulação quando a PID os distribui para usuários verificados.
 
-Translations are periodically pulled from Transifex and merged into the git repository. See the
-[translation process](doc/translation_process.md) for details on how this works.
+---
 
-**Important**: We do not accept translation changes as GitHub pull requests because the next
-pull from Transifex would automatically overwrite them again.
+## Rodando localmente (regtest)
+
+### Requisitos
+- Ubuntu / WSL2
+- Build tools: `autoconf`, `automake`, `libtool`, `pkg-config`, `libssl-dev`, `libboost-all-dev`
+
+### Build
+
+```bash
+git clone https://github.com/Bernardo-R-O-Carvalho/verdecoin.git
+cd verdecoin
+git checkout verdecoin-main
+./autogen.sh
+./configure --without-miniupnpc
+make -j4
+```
+
+### Subir o nó e criar carteira da PID
+
+```bash
+# Subir o nó em regtest
+rm -rf /tmp/vdc-test && mkdir /tmp/vdc-test
+./src/bitcoind -regtest -datadir=/tmp/vdc-test -daemon
+sleep 12
+
+# Criar carteira e importar chave da PID
+./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test createwallet "PID"
+./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test -rpcwallet=PID importdescriptors \
+  '[{"desc":"pk(cNM5biwD2vCCPmYCNcs8569WU9jnBXiX5DeP9QTeAXQGd7v2Zi5F)#f2sw8a7m","timestamp":0}]'
+
+# Minerar bloco 1 (50M VDC para a PID) + 100 blocos para maturar
+ADDR=$(./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test -rpcwallet=PID getnewaddress)
+./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test generatetoaddress 101 $ADDR
+
+# Verificar saldo
+./src/bitcoin-cli -regtest -datadir=/tmp/vdc-test -rpcwallet=PID getbalance
+# Resultado: 50000000.00000000
+```
+
+---
+
+## Status do projeto
+
+Este repositório foi desenvolvido durante o **VerdeCoin Hackathon**. O código atual é funcional em regtest e demonstra o fluxo completo de emissão e transferência de VDC.
+
+**Implementado:**
+- ✅ Fork do Bitcoin Core v27.0 com parâmetros VerdeCoin
+- ✅ Genesis block com chave da PID
+- ✅ Bloco 1 emite 50M VDC para a PID
+- ✅ Proof of Authority (recompensa zero em todos os blocos exceto o 1)
+- ✅ Prefixos de endereço, portas e identificadores de rede customizados
+
+**Próximos passos:**
+- [ ] Seeds DNS (`seed.verdecoin.org`)
+- [ ] Servidor mainnet 24/7
+- [ ] Multiplicador territorial por zona PID
+- [ ] Integração com validação Gov.br e geolocalização
+- [ ] SDK para integração com o app VerdeCoin
+
+---
+
+## Licença
+
+Fork do [Bitcoin Core](https://github.com/bitcoin/bitcoin) — MIT License.  
+Modificações VerdeCoin © 2025 PID — todos os direitos reservados.
